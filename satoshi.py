@@ -92,6 +92,7 @@ def all_price(message):
     if message.text[0] == '/' and message.chat.id == -1001383331161: # lock to one chat
         try:
             coin = message.text.replace('/', '')
+            coin = coin.lower()
             print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] '+ 'Price requested')
             result = price_get(db[coin])
 
