@@ -24,7 +24,7 @@ print(banner)
 print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] '+ 'Movrodiy initialized')
 
 
-bot = telepot.Bot('539738186:AAHcpE6jCYdt9blq2_c8452im-ntLvYPc18')
+bot = telepot.Bot('')
 
 
 def price_update():
