@@ -6,6 +6,7 @@ import telepot
 import requests
 import threading
 import time
+import random
 from telepot.loop import MessageLoop
 
 
@@ -23,7 +24,7 @@ print(banner)
 print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] '+ 'Movrodiy initialized')
 
 
-bot = telepot.Bot('504066683:AAEKdSi_rrKApWxQkgFZHPD7t4QXwbj_RJo')
+bot = telepot.Bot('539738186:AAHcpE6jCYdt9blq2_c8452im-ntLvYPc18')
 
 
 def price_update():
@@ -164,13 +165,21 @@ def handle(msg):
                 except Exception as e:
                     print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] ' + 'ERROR: ' + str(e))
 
+def apocalypse():
+    requests.get('https://api.telegram.org/bot' + '539738186:AAHcpE6jCYdt9blq2_c8452im-ntLvYPc18' + '/sendMessage?chat_id=-1001383331161&text=ФИНАНСОВЫЙ АПОКАЛИПСИС НЕИЗБЕЖЕН')
+    time.sleep(random.randint(600, 900))
+
+
+print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] '+ 'Waiting Movrodiy to be ready')
 
 myThread = threading.Thread(target = price_update)
 myThread.start()
 
+myThread2 = threading.Thread(target = apocalypse)
+myThread2.start()
 
-print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] '+ 'Waiting Movrodiy to be ready')
-time.sleep(7)
+time.sleep(8)
+
 print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] '+ 'Movrodiy ready')
 
 
@@ -182,3 +191,7 @@ if updates:
 
 
 MessageLoop(bot, handle).run_as_thread()
+
+
+while 1:
+    time.sleep(10)
