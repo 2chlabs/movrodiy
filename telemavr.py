@@ -23,7 +23,7 @@ print(banner)
 print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] '+ 'Movrodiy initialized')
 
 
-bot = telepot.Bot('') # token here
+bot = telepot.Bot('504066683:AAEKdSi_rrKApWxQkgFZHPD7t4QXwbj_RJo')
 
 
 def price_update():
@@ -79,7 +79,7 @@ def handle(msg):
         chat_id = msg['chat']['id']
         command = msg['text']
 
-        if command[0] == '/':
+        if command[0] == '/' and chat_id == -1001383331161:
             print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] ' + 'Got command: %s' % command)
 
             if command == '/help':
@@ -170,8 +170,15 @@ myThread.start()
 
 
 print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] '+ 'Waiting Movrodiy to be ready')
-time.sleep(5)
+time.sleep(7)
 print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] '+ 'Movrodiy ready')
+
+
+updates = bot.getUpdates()
+
+if updates:
+    last_update_id = updates[-1]['update_id']
+    bot.getUpdates(offset = last_update_id + 1)
 
 
 MessageLoop(bot, handle).run_as_thread()
