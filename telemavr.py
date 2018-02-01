@@ -83,7 +83,7 @@ def handle(msg):
         chat_id = msg['chat']['id']
         command = msg['text']
 
-        if command[0] == '/' and chat_id == -1001383331161:
+        if command[0] == '/':
             print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] ' + 'Got command: %s' % command)
 
             if command == '/help':
