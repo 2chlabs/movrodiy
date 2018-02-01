@@ -26,7 +26,7 @@ print(banner)
 print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] '+ 'Movrodiy initialized')
 
 
-bot = telepot.Bot('TOKEN') # put token here
+bot = telepot.Bot('TOKEN') # token
 
 
 def price_update():
@@ -82,7 +82,7 @@ def handle(msg):
         chat_id = msg['chat']['id']
         command = msg['text']
 
-        if command[0] == '/':
+        if command[0] == '/' and chat_id == %CHAT_ID%: # lock for one chat
             print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] ' + 'Got command: %s' % command)
 
             if command == '/help':
@@ -168,8 +168,10 @@ def handle(msg):
                     print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] ' + 'ERROR: ' + str(e))
 
 def apocalypse():
-    requests.get('https://api.telegram.org/bot' + 'TOKEN' + '/sendMessage?chat_id=-1001383331161&text=ФИНАНСОВЫЙ АПОКАЛИПСИС НЕИЗБЕЖЕН') # put token here
-    time.sleep(random.randint(600, 900))
+    while True:
+        requests.get('https://api.telegram.org/bot' + '%TOKEN%' + '/sendMessage?chat_id=' + '%CHAT_ID%' + '&text=ФИНАНСОВЫЙ АПОКАЛИПСИС НЕИЗБЕЖЕН') # change chat_id
+        print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] '+ 'Movrodiy revoked')
+        time.sleep(random.randint(600, 900))
 
 
 print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] '+ 'Waiting Movrodiy to be ready')
@@ -196,4 +198,4 @@ MessageLoop(bot, handle).run_as_thread()
 
 
 while 1:
-    time.sleep(10) # keep programm running
+    time.sleep(10)
