@@ -25,8 +25,10 @@ banner = r"""
 print(banner)
 print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] '+ 'Movrodiy initialized')
 
-
-bot = telepot.Bot('TOKEN') # token
+token = '' # token
+ch_id = -1001383331161 # lock chat id, optional
+quotes = ['ФИНАНСОВЫЙ АПОКАЛИПСИС НЕИЗБЕЖЕН', 'МЫ МОЖЕМ МНОГОЕ', 'МЫ МЕНЯЕМ МИР', 'РЕЖИМ СПОКОЙСТВИЕ', 'ВСЕМ ВСЕ ПЛАТИТСЯ', 'КУПЛЮ ЖЕНЕ САПОГИ', 'ВЫПЛАТЫ RIPPLE 2018 БУДУТ', 'ДА МНЕ ПОХУЙ ВООБЩЕ Я НА ЛУНЕ ЖИВУ', 'BUY MAVRO']
+bot = telepot.Bot(token)
 
 
 def price_update():
@@ -45,7 +47,7 @@ def price_update():
 
         print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] '+ 'DB updated: ' + str(len(db)))
 
-        time.sleep(75)
+        time.sleep(80)
 
 def price_get(ch):
     name = pdata[ch]['name']
@@ -82,7 +84,7 @@ def handle(msg):
         chat_id = msg['chat']['id']
         command = msg['text']
 
-        if command[0] == '/' and chat_id == %CHAT_ID%: # lock for one chat
+        if command[0] == '/' and chat_id == ch_id: # lock for one chat
             print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] ' + 'Got command: %s' % command)
 
             if command == '/help':
@@ -169,9 +171,12 @@ def handle(msg):
 
 def apocalypse():
     while True:
-        requests.get('https://api.telegram.org/bot' + '%TOKEN%' + '/sendMessage?chat_id=' + '%CHAT_ID%' + '&text=ФИНАНСОВЫЙ АПОКАЛИПСИС НЕИЗБЕЖЕН') # change chat_id
+        msi = telepot.message_identifier(bot.sendMessage(str(ch_id), quotes[random.randint(0, len(quotes) - 1)])) # movrodiy semi-silent revoke
+        time.sleep(1)
+        bot.deleteMessage(msi)
+        #bot.deleteMessage(telepot.message_identifier(bot.sendMessage(str(ch_id), quotes[random.randint(0, len(quotes) - 1)])))
         print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] '+ 'Movrodiy revoked')
-        time.sleep(random.randint(600, 900))
+        time.sleep(random.randint(150, 200))
 
 
 print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] '+ 'Waiting Movrodiy to be ready')
@@ -184,18 +189,16 @@ myThread2.start()
 
 time.sleep(8)
 
-print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] '+ 'Movrodiy ready')
-
 
 updates = bot.getUpdates()
 
-if updates:
+if updates: # ignore old messages on initialization
     last_update_id = updates[-1]['update_id']
     bot.getUpdates(offset = last_update_id + 1)
 
 
 MessageLoop(bot, handle).run_as_thread()
-
+print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] '+ 'Movrodiy ready')
 
 while 1:
     time.sleep(10)
