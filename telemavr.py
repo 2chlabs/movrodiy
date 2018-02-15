@@ -92,8 +92,8 @@ def handle(msg):
                 print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] ' + 'Help sent')
             else:
                 if command == '/ракета':
-                  command = '/xrp';
-                endif
+                    command = '/xrp'
+                
                 try:
                     coin = command.replace('/', '')
                     coin = coin.lower()
