@@ -91,6 +91,9 @@ def handle(msg):
                 bot.sendMessage(chat_id, 'Usage:\n/mavro')
                 print('[' + time.strftime("%H:%M:%S", time.localtime(time.time())) + '] ' + 'Help sent')
             else:
+                if command == '/ракета':
+                  command = '/xrp';
+                endif
                 try:
                     coin = command.replace('/', '')
                     coin = coin.lower()
